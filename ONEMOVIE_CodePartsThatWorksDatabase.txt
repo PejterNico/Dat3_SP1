@@ -1,0 +1,144 @@
+/*// VIRKER- Save movie and the cast and crew in the database
+          int fetchMovieId = 348668;
+          try {
+              String jsonTextMifune = MovieService.getMovieById(fetchMovieId);
+              MovieDTO mifuneDTO = MovieDTO.convertFromJson(jsonTextMifune);
+
+              // Save movie to database
+              Movie movieEntity = new Movie();
+              movieEntity.setAdult(mifuneDTO.isAdult());
+              movieEntity.setBackdropPath(mifuneDTO.getBackdropPath());
+              movieEntity.setOriginalLanguage(mifuneDTO.getOriginalLanguage());
+              movieEntity.setOriginalTitle(mifuneDTO.getOriginalTitle());
+              //movieEntity.setOverview(mifuneDTO.getOverview());
+              movieEntity.setPopularity(mifuneDTO.getPopularity());
+              movieEntity.setPosterPath(mifuneDTO.getPosterPath());
+              movieEntity.setTitle(mifuneDTO.getTitle());
+              movieEntity.setVideo(mifuneDTO.isVideo());
+              movieEntity.setVoteAverage(mifuneDTO.getVoteAverage());
+              movieEntity.setVoteCount(mifuneDTO.getVoteCount());
+              movieEntity.setReleaseDate(String.valueOf(mifuneDTO.getRelease_date()));
+
+              // Fetch and save cast
+              String jsonTextCreditsCast = MovieService.getMovieCreditsById(fetchMovieId);
+              List<CastDTO> castList = CastDTO.convertFromJsonCastList(jsonTextCreditsCast);
+              castList.forEach(cast -> {
+                  Cast castEntity = new Cast();
+                  castEntity.setName(cast.getName());
+                  castEntity.setCharacter(cast.getCharacter());
+                  castEntity.setMovie(movieEntity);
+                  movieEntity.getCastList().add(castEntity);
+              });
+
+              // Fetch and save crew
+              String jsonTextCreditsCrew = MovieService.getMovieCreditsById(fetchMovieId);
+              List<CrewDTO> crewList = CrewDTO.convertFromJsonCrewList(jsonTextCreditsCrew);
+              crewList.forEach(crew -> {
+                  Crew crewEntity = new Crew();
+                  crewEntity.setName(crew.getName());
+                  crewEntity.setJob(crew.getJob());
+                  crewEntity.setMovie(movieEntity);
+                  movieEntity.getCrewList().add(crewEntity);
+              });
+
+              MovieDAO movieDAO = new MovieDAO();
+              movieDAO.save(movieEntity);
+              System.out.println("Movie saved to database: " + mifuneDTO.getTitle());
+          } catch (IOException | InterruptedException e) {
+              throw new RuntimeException(e);
+          }
+         */
+
+/*
+ //One movie at a time
+        // VIRKER- Save movie and the cast and crew and genres in the database
+        int fetchMovieId = 139;
+        try {
+            String jsonTextMifune = MovieService.getMovieById(fetchMovieId);
+            MovieDTO mifuneDTO = MovieDTO.convertFromJson(jsonTextMifune);
+
+            // Save movie to database
+            Movie movieEntity = new Movie();
+            movieEntity.setAdult(mifuneDTO.isAdult());
+            movieEntity.setBackdropPath(mifuneDTO.getBackdropPath());
+            movieEntity.setOriginalLanguage(mifuneDTO.getOriginalLanguage());
+            movieEntity.setOriginalTitle(mifuneDTO.getOriginalTitle());
+            //movieEntity.setOverview(mifuneDTO.getOverview());
+            movieEntity.setPopularity(mifuneDTO.getPopularity());
+            movieEntity.setPosterPath(mifuneDTO.getPosterPath());
+            movieEntity.setTitle(mifuneDTO.getTitle());
+            movieEntity.setVideo(mifuneDTO.isVideo());
+            movieEntity.setVoteAverage(mifuneDTO.getVoteAverage());
+            movieEntity.setVoteCount(mifuneDTO.getVoteCount());
+            movieEntity.setReleaseDate(String.valueOf(mifuneDTO.getRelease_date()));
+
+            // Fetch and save genres
+            List<GenreDTO> genreList = GenreDTO.convertFromJsonCastList(jsonTextMifune);
+            genreList.forEach(genre -> {
+                Genre genreEntity = new Genre();
+                genreEntity.setId(genre.getId());
+                genreEntity.setName(genre.getName());
+                genreEntity.setMovie(movieEntity);
+                movieEntity.getGenreList().add(genreEntity);
+            });
+
+            // Fetch and save cast
+            String jsonTextCreditsCast = MovieService.getMovieCreditsById(fetchMovieId);
+            List<CastDTO> castList = CastDTO.convertFromJsonCastList(jsonTextCreditsCast);
+            castList.forEach(cast -> {
+                Cast castEntity = new Cast();
+                castEntity.setName(cast.getName());
+                castEntity.setCharacter(cast.getCharacter());
+                castEntity.setMovie(movieEntity);
+                movieEntity.getCastList().add(castEntity);
+            });
+
+            // Fetch and save crew
+            String jsonTextCreditsCrew = MovieService.getMovieCreditsById(fetchMovieId);
+            List<CrewDTO> crewList = CrewDTO.convertFromJsonCrewList(jsonTextCreditsCrew);
+            crewList.forEach(crew -> {
+                Crew crewEntity = new Crew();
+                crewEntity.setName(crew.getName());
+                crewEntity.setJob(crew.getJob());
+                crewEntity.setMovie(movieEntity);
+                movieEntity.getCrewList().add(crewEntity);
+            });
+
+            MovieDAO movieDAO = new MovieDAO();
+            movieDAO.merge(movieEntity);
+            System.out.println(movieEntity);
+            System.out.println("Movie saved to database: " + mifuneDTO.getTitle());
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        */
+
+
+ /* //THIS WORKS - Saves the movie in the database
+        try {
+            String jsonTextMifune = MovieService.getMovieById(833339);
+            MovieDTO mifuneDTO = MovieDTO.convertFromJson(jsonTextMifune);
+
+            // Save movie to database
+            Movie movieEntity = new Movie();
+            movieEntity.setAdult(mifuneDTO.isAdult());
+            movieEntity.setBackdropPath(mifuneDTO.getBackdropPath());
+            movieEntity.setOriginalLanguage(mifuneDTO.getOriginalLanguage());
+            movieEntity.setOriginalTitle(mifuneDTO.getOriginalTitle());
+            //movieEntity.setOverview(mifuneDTO.getOverview());
+            movieEntity.setPopularity(mifuneDTO.getPopularity());
+            movieEntity.setPosterPath(mifuneDTO.getPosterPath());
+            movieEntity.setTitle(mifuneDTO.getTitle());
+            movieEntity.setVideo(mifuneDTO.isVideo());
+            movieEntity.setVoteAverage(mifuneDTO.getVoteAverage());
+            movieEntity.setVoteCount(mifuneDTO.getVoteCount());
+            movieEntity.setReleaseDate(String.valueOf(mifuneDTO.getRelease_date()));
+
+            MovieDAO movieDAO = new MovieDAO();
+            movieDAO.save(movieEntity);
+            System.out.println("Movie saved to database: " + mifuneDTO.getTitle());
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        */
+

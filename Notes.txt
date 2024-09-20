@@ -1,0 +1,24 @@
+DTO:
+    - Created DTO's so it fetches the data from the API with Movies data and Cast/Director data.
+
+
+Enitity:
+    - Create it from the DTO.
+    - And make the relationship between the entities so it can save it, in the database?
+
+
+DAOS:
+    - Is it here I create the CRUD operations - to fetch from the Database?
+    - DAO laget skal kun kalde på databasen.
+    - Det er her hvor jeg ligger persistens laget, og det er her hvor jeg ligger min SQL kode, som skal hente data fra databasen.
+
+    - GET : "knownForDepartment" : Og så bare set parameter på og søge efter f.eks. "Acting" eller "Directing" ( Ved ikke om det ville give meining med en enum her?)
+
+Service lag: Business logic (DAO)
+    - Here I create the logic for the CRUD operations, and the logic for the API calls.
+    - Service lager skal kun kalde på DAO laget, og ikke direkte på databasen.
+    - Det vil sige at jeg også har kunne have "Business logic":
+        - Hvor jeg for eksempel kunne sige at jeg ville have det i UPPER CASE, eller at jeg ville have det i LOWER CASE. (Blot eksempler)
+
+
+

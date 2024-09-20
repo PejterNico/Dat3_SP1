@@ -1,0 +1,81 @@
+/* // Get all movies for time perod and print the movie info and overview and castmembers
+        try {
+            String jsonTextM = MovieService.getAllDanishMoviesFromRelaseYearAndCountry("2019-09-01", "2024-09-01", 1);
+            List<MovieDTO> allDKMoviesFiveYear = MovieDTO.convertFromJsonList(jsonTextM);
+            allDKMoviesFiveYear.forEach(movie -> {
+                System.out.println(movie);
+
+                // Fetch and print the cast for each movie
+                try {
+                    String jsonTextCredits = MovieService.getMovieCreditsById(movie.getId());
+                    List<CastDTO> castList = CastDTO.convertFromJsonCastList(jsonTextCredits);
+                    castList.forEach(System.out::println);
+                } catch (IOException | InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+         */
+
+
+/* // Get Movies By Avg Voting Between ?? and ?? with page ??
+        try {
+            String jsonText = MovieService.getMoviesByAvgVotingBetween(8.0, 8.8, 2);
+            List<MovieDTO> ratedMovies = MovieDTO.convertFromJsonList(jsonText);
+            ratedMovies.forEach(System.out::println);
+
+        }
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        */
+
+ /* //VIRKER
+         // Get All Danish Movies From Relase Year And Country Set min and max (String type: "yyyy-MM-dd") and page ? .
+         try {
+             String jsonTextM = MovieService.getAllDanishMoviesFromRelaseYearAndCountry("2019-09-01", "2024-09-01",1);
+             List<MovieDTO> AllDKMoviesFiveYear = MovieDTO.convertFromJsonList(jsonTextM);
+             AllDKMoviesFiveYear.forEach(System.out::println);
+
+         }
+         catch (IOException e) {
+             throw new RuntimeException(e);
+         }
+         catch (InterruptedException e) {
+             throw new RuntimeException(e);
+         }
+         */
+
+
+ /*//Virker Henter movie med id 139 og printer overview og cast og crew (EN film med et id)
+         // Get Movie By Id and print the overview and cast
+         try {
+             String jsonTextMifune = MovieService.getMovieById(139);
+             MovieDTO mifuneDTO = MovieDTO.convertFromJson(jsonTextMifune);
+             System.out.println(mifuneDTO);
+             System.out.println(mifuneDTO.getOverview());
+
+             // Fetch and print the cast for the movie
+             String jsonTextCreditsCast = MovieService.getMovieCreditsById(mifuneDTO.getId());
+             List<CastDTO> castList = CastDTO.convertFromJsonCastList(jsonTextCreditsCast);
+             castList.forEach(System.out::println);
+
+             // Fetch and print the Crew for the movie
+             String jsonTextCreditsCrew = MovieService.getMovieCreditsById((mifuneDTO.getId()));
+             List<CrewDTO> crewList = CrewDTO.convertFromJsonCrewList(jsonTextCreditsCrew);
+             crewList.forEach(System.out::println);
+         }
+         catch (IOException e) {
+             throw new RuntimeException(e);
+         }
+         catch (InterruptedException e) {
+             throw new RuntimeException(e);
+         }
+         */
+

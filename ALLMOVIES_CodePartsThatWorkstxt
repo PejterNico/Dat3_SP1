@@ -1,0 +1,134 @@
+/*
+        /// Fetch all Danish movies from the specified release year and country
+        try {
+            // WORKS!! - Fetch all Danish movies from the specified release year and country
+            String jsonTextM = MovieService.getAllDanishMoviesFromRelaseYearAndCountry("2019-09-01", "2024-09-01", 1);
+            List<MovieDTO> allDKMoviesFiveYear = MovieDTO.convertFromJsonList(jsonTextM);
+            allDKMoviesFiveYear.forEach(movie -> {
+                System.out.println(movie);
+
+                // Save movie to database
+                Movie movieEntity = new Movie();
+                movieEntity.setAdult(movie.isAdult());
+                movieEntity.setBackdropPath(movie.getBackdropPath());
+                movieEntity.setOriginalLanguage(movie.getOriginalLanguage());
+                movieEntity.setOriginalTitle(movie.getOriginalTitle());
+                //movieEntity.setOverview(movie.getOverview());
+                movieEntity.setPopularity(movie.getPopularity());
+                movieEntity.setPosterPath(movie.getPosterPath());
+                movieEntity.setTitle(movie.getTitle());
+                movieEntity.setVideo(movie.isVideo());
+                movieEntity.setVoteAverage(movie.getVoteAverage());
+                movieEntity.setVoteCount(movie.getVoteCount());
+                movieEntity.setReleaseDate(String.valueOf(movie.getRelease_date()));
+
+                // Fetch and save cast
+                try {
+                    String jsonTextCreditsCast = MovieService.getMovieCreditsById(movie.getId());
+                    List<CastDTO> castList = CastDTO.convertFromJsonCastList(jsonTextCreditsCast);
+                    castList.forEach(cast -> {
+                        Cast castEntity = new Cast();
+                        castEntity.setName(cast.getName());
+                        castEntity.setCharacter(cast.getCharacter());
+                        castEntity.setMovie(movieEntity);
+                        movieEntity.getCastList().add(castEntity);
+                    });
+
+                    // Fetch and save crew
+                    String jsonTextCreditsCrew = MovieService.getMovieCreditsById(movie.getId());
+                    List<CrewDTO> crewList = CrewDTO.convertFromJsonCrewList(jsonTextCreditsCrew);
+                    crewList.forEach(crew -> {
+                        Crew crewEntity = new Crew();
+                        crewEntity.setName(crew.getName());
+                        crewEntity.setJob(crew.getJob());
+                        crewEntity.setMovie(movieEntity);
+                        movieEntity.getCrewList().add(crewEntity);
+                    });
+                } catch (IOException | InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                MovieDAO movieDAO = new MovieDAO();
+                movieDAO.save(movieEntity);
+                System.out.println("Movie saved to database: " + movie.getTitle());
+            });
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        */
+
+/// Fetch all Danish movies from the specified release year and country + cast + crew + genres
+        try {
+            // WORKS!! - Fetch all Danish movies from the specified release year and country
+            String jsonTextM = MovieService.getAllDanishMoviesFromRelaseYearAndCountry("2019-09-01", "2024-09-01", 2);
+            List<MovieDTO> allDKMoviesFiveYear = MovieDTO.convertFromJsonList(jsonTextM);
+            allDKMoviesFiveYear.forEach(movie -> {
+                System.out.println(movie);
+
+                // Save movie to database
+                Movie movieEntity = new Movie();
+                movieEntity.setAdult(movie.isAdult());
+                movieEntity.setBackdropPath(movie.getBackdropPath());
+                movieEntity.setOriginalLanguage(movie.getOriginalLanguage());
+                movieEntity.setOriginalTitle(movie.getOriginalTitle());
+                //movieEntity.setOverview(movie.getOverview());
+                movieEntity.setPopularity(movie.getPopularity());
+                movieEntity.setPosterPath(movie.getPosterPath());
+                movieEntity.setTitle(movie.getTitle());
+                movieEntity.setVideo(movie.isVideo());
+                movieEntity.setVoteAverage(movie.getVoteAverage());
+                movieEntity.setVoteCount(movie.getVoteCount());
+                movieEntity.setReleaseDate(String.valueOf(movie.getRelease_date()));
+
+                // Fetch and save cast
+                try {
+                    // Fetch and save genres
+                    List<GenreDTO> genreList = GenreDTO.convertFromJsonCastList(jsonTextM);
+                    if (genreList != null) {
+                        genreList.forEach(genre -> {
+                            Genre genreEntity = new Genre();
+                            genreEntity.setId(genre.getId());
+                            genreEntity.setName(genre.getName());
+                            genreEntity.setMovie(movieEntity);
+                            movieEntity.getGenreList().add(genreEntity);
+                        });
+                    }
+
+                    // Fetch and save Cast
+                    String jsonTextCreditsCast = MovieService.getMovieCreditsById(movie.getId());
+                    List<CastDTO> castList = CastDTO.convertFromJsonCastList(jsonTextCreditsCast);
+                    castList.forEach(cast -> {
+                        Cast castEntity = new Cast();
+                        castEntity.setName(cast.getName());
+                        castEntity.setCharacter(cast.getCharacter());
+                        castEntity.setMovie(movieEntity);
+                        movieEntity.getCastList().add(castEntity);
+                    });
+
+                    // Fetch and save crew
+                    String jsonTextCreditsCrew = MovieService.getMovieCreditsById(movie.getId());
+                    List<CrewDTO> crewList = CrewDTO.convertFromJsonCrewList(jsonTextCreditsCrew);
+                    crewList.forEach(crew -> {
+                        Crew crewEntity = new Crew();
+                        crewEntity.setName(crew.getName());
+                        crewEntity.setJob(crew.getJob());
+                        crewEntity.setMovie(movieEntity);
+                        movieEntity.getCrewList().add(crewEntity);
+                    });
+                } catch (IOException | InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                MovieDAO movieDAO = new MovieDAO();
+                movieDAO.merge(movieEntity);
+                System.out.println("Movie saved to database: " + movie.getTitle());
+            });
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+
+
+        // Record the end time of the program and fetching data
+        long endTime = System.currentTimeMillis();
+        long duration = endTime - startTime;
+        System.out.println("Task runtime: " + duration + " milliseconds");
+    }
