@@ -42,10 +42,10 @@ class MovieDAOTest {
         assertNotNull(allMovies);
 
         // Expected and actual values
-        int expectedSize = 82; // Example expected size
+        int expectedSize = 84; // Example expected size
         int actualSize = allMovies.size();
 
-        assertEquals(expectedSize, actualSize, "The number of movies should be " + expectedSize);
+        assertEquals(expectedSize, actualSize);
     }
 
     @Test
@@ -55,10 +55,35 @@ class MovieDAOTest {
         assertNotNull(movie);
 
         // Expected and actual values
-        String expectedTitle = "Avatar"; // Example expected title
+        String expectedTitle = "Speak No Evil"; // Example expected title
         String actualTitle = movie.getTitle();
 
-        assertEquals(expectedTitle, actualTitle);
+        assertEquals(expectedTitle,actualTitle);
+    }
+
+    @Test
+    @DisplayName("Update Movie")
+    void testUpdateMovie() {
+        Movie movie = dao.findById(Movie.class, 1);
+        assertNotNull(movie);
+
+        // Expected and actual values
+        String expectedTitle = "Speak No Evil"; // Example expected title
+        String actualTitle = movie.getTitle();
+
+        assertEquals(expectedTitle,actualTitle);
+
+        movie.setTitle("Speak No Evil 2");
+        dao.update(movie);
+
+        Movie updatedMovie = dao.findById(Movie.class, 1);
+        assertNotNull(updatedMovie);
+
+        // Expected and actual values
+        String expectedUpdatedTitle = "Speak No Evil 2"; // Example expected title
+        String actualUpdatedTitle = updatedMovie.getTitle();
+
+        assertEquals(expectedUpdatedTitle,actualUpdatedTitle);
     }
 
 }

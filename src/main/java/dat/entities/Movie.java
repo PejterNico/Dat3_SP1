@@ -1,6 +1,9 @@
 package dat.entities;
 
 
+import dat.dtos.ProductionCompanyDTO;
+import dat.dtos.ProductionCountryDTO;
+import dat.dtos.SpokenLanguageDTO;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -34,6 +37,15 @@ public class Movie {
 
     @OneToMany(mappedBy ="movie", cascade = CascadeType.ALL)
     private List<Genre> genreList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+    private List<ProductionCompany> productionCompanies = new ArrayList<>();
+
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+    private List<ProductionCountry> productionCountries = new ArrayList<>();
+
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+    private List<SpokenLanguage> spokenLanguages = new ArrayList<>();
 
 
     @Override

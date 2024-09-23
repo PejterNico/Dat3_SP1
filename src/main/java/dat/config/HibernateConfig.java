@@ -1,9 +1,6 @@
 package dat.config;
 
-import dat.entities.Cast;
-import dat.entities.Crew;
-import dat.entities.Genre;
-import dat.entities.Movie;
+import dat.entities.*;
 import jakarta.persistence.EntityManagerFactory;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -36,6 +33,9 @@ public class HibernateConfig {
         configuration.addAnnotatedClass(Cast.class);
         configuration.addAnnotatedClass(Crew.class);
         configuration.addAnnotatedClass(Genre.class);
+        configuration.addAnnotatedClass(ProductionCompany.class);
+        configuration.addAnnotatedClass(ProductionCountry.class);
+        configuration.addAnnotatedClass(SpokenLanguage.class);
 
     }
 

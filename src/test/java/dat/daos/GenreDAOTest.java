@@ -21,7 +21,7 @@ class GenreDAOTest {
     @BeforeAll
     static void setUpAll() {
         emf = HibernateConfig.getEntityManagerFactoryForTest();
-        dao = new GenreDAO(emf);
+        dao = new GenreDAO();
     }
 
     @AfterAll

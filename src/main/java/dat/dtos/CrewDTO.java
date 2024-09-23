@@ -30,7 +30,7 @@ public class CrewDTO {
         objectMapper.registerModule(new JavaTimeModule());
 
         try {
-            MovieCreditsResponseDTO creditsResponse = objectMapper.readValue(jsonText, MovieCreditsResponseDTO.class);
+            MovieResponseDTO creditsResponse = objectMapper.readValue(jsonText, MovieResponseDTO.class);
             return creditsResponse.getCrew();
         } catch (IOException e) {
             e.printStackTrace();
